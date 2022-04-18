@@ -258,6 +258,8 @@ parameter: {
 }
 ```
 
+generate result:
+
 ```go
 package main
 // SecretKeyRef Selects a key of a secret in the pod's namespace

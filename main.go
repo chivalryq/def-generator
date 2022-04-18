@@ -149,6 +149,7 @@ func parseParameters(paraValue cue.Value, paramKey string) error {
 }
 
 func printParamGosStruct(parameters []StructParameter) {
+	fmt.Printf("package main\n\n")
 	for _, parameter := range parameters {
 		if parameter.Usage == "" {
 			parameter.Usage = "-"
@@ -169,7 +170,7 @@ func printField(param StructParameter) {
 		} else {
 			fmt.Fprintf(buffer, "type %s struct {\n", fieldName)
 			for _, f := range param.Fields {
-				fmt.Fprintf(buffer, "%s %s `json:\"%s\"`\n", dm.FieldName(f.Name), f.GoType, f.Name)
+				fmt.Fprintf(buffer, "    %s %s `json:\"%s\"`\n", dm.FieldName(f.Name), f.GoType, f.Name)
 			}
 
 			fmt.Fprintf(buffer, "}\n")

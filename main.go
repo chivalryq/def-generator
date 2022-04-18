@@ -9,6 +9,7 @@ import (
 	"github.com/oam-dev/kubevela/pkg/cue/packages"
 	"github.com/oam-dev/kubevela/pkg/utils/common"
 	"github.com/pkg/errors"
+	"go/format"
 	"strings"
 )
 
@@ -23,7 +24,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	value, err := common.GetCUEParameterValue(annotations, pd)
+	value, err := common.GetCUEParameterValue(webservice, pd)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -188,12 +189,12 @@ func printField(param StructParameter) {
 	default:
 		fmt.Fprintf(buffer, "type %s %s\n", fieldName, param.GoType)
 	}
-	//source, err := format.Source(buffer.Bytes())
-	//if err != nil {
-	//	fmt.Println("Failed to format source:", err)
-	//}
-	fmt.Println(buffer.String())
-	//fmt.Println(string(source))
+	source, err := format.Source(buffer.Bytes())
+	if err != nil {
+		fmt.Println("Failed to format source:", err)
+	}
+	//fmt.Println(buffer.String())
+	fmt.Println(string(source))
 }
 
 func trimIncompleteKind(mask string) (string, error) {
